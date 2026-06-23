@@ -41,12 +41,19 @@ button {
 }
 
 .intro {
+  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 28px;
   border-bottom: 1px solid var(--border);
-  padding: 18px 0 34px;
+  padding: 18px 120px 34px 0;
+}
+
+.intro #resetButton {
+  position: absolute;
+  top: 18px;
+  right: 0;
 }
 
 .eyebrow {
@@ -93,8 +100,7 @@ h2 {
   line-height: 1.7;
 }
 
-.workspace,
-.results-layout {
+.workspace {
   display: grid;
   grid-template-columns: minmax(280px, 0.82fr) minmax(360px, 1.18fr);
   gap: 40px;
@@ -102,13 +108,22 @@ h2 {
 }
 
 .workspace {
-  padding-top: 36px;
-}
-
-.results-layout {
   margin-top: 38px;
   border-top: 1px solid var(--border);
   padding-top: 36px;
+}
+
+.options-column,
+.results-layout {
+  display: grid;
+  gap: 38px;
+  align-items: start;
+}
+
+.results-layout {
+  position: sticky;
+  top: 28px;
+  scroll-margin-top: 24px;
 }
 
 .panel {
@@ -366,8 +381,8 @@ select:focus {
 }
 
 .pick-panel {
-  border-left: 1px solid var(--border);
-  padding-left: 28px;
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
 }
 
 .pick-result {
@@ -407,14 +422,32 @@ select:focus {
     flex-direction: column;
   }
 
+  .intro {
+    padding: 18px 0 24px;
+  }
+
+  .intro #resetButton {
+    position: static;
+    align-self: flex-end;
+    width: auto;
+  }
+
   h1 {
     font-size: 2.4rem;
   }
 
-  .workspace,
-  .results-layout {
+  .workspace {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+
+  .options-column,
+  .results-layout {
+    gap: 28px;
+  }
+
+  .results-layout {
+    position: static;
   }
 
   .form-panel {
@@ -437,7 +470,6 @@ select:focus {
   }
 
   .pick-panel {
-    border-left: 0;
-    padding-left: 0;
+    padding-top: 28px;
   }
 }

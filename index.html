@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meal Decision Helper</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,96 +13,97 @@
       <div>
         <p class="eyebrow">Meal Decision Helper</p>
         <h1 id="page-title">Choose where to eat with less debate.</h1>
-        <p class="summary">Add 2 to 10 options, rate each one, calculate your top 3, then pick from the strongest choices.</p>
-      </div>
       <button class="secondary-button" id="resetButton" type="button">Reset</button>
     </section>
 
     <section class="workspace" aria-label="Meal decision workspace">
-      <form class="panel form-panel" id="mealForm" novalidate>
-        <h2 id="formTitle">Add an option</h2>
-        <input type="hidden" id="editingId">
+      <div class="options-column">
+        <form class="panel form-panel" id="mealForm" novalidate>
+          <h2 id="formTitle">Add an option</h2>
+          <input type="hidden" id="editingId">
 
-        <label for="mealName">Meal or restaurant name</label>
-        <input id="mealName" name="mealName" type="text" autocomplete="off" placeholder="Example: Sushi Cafe">
+          <label for="mealName">Meal or restaurant name</label>
+          <input id="mealName" name="mealName" type="text" autocomplete="off" placeholder="Example: Sushi Cafe">
 
-        <div class="rating-grid">
-          <div>
-            <label for="costRating">Cost</label>
-            <select id="costRating" name="costRating">
-              <option value="">Select</option>
-              <option value="5">5 - Cheapest</option>
-              <option value="4">4</option>
-              <option value="3">3</option>
-              <option value="2">2</option>
-              <option value="1">1 - Most expensive</option>
-            </select>
+          <div class="rating-grid">
+            <div>
+              <label for="costRating">Cost</label>
+              <select id="costRating" name="costRating">
+                <option value="">Select</option>
+                <option value="5">5 - Cheapest</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1 - Most expensive</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="healthRating">Healthiness</label>
+              <select id="healthRating" name="healthRating">
+                <option value="">Select</option>
+                <option value="5">5 - Healthiest</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1 - Least healthy</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="travelRating">Travel time</label>
+              <select id="travelRating" name="travelRating">
+                <option value="">Select</option>
+                <option value="5">5 - Shortest</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1 - Longest</option>
+              </select>
+            </div>
           </div>
 
-          <div>
-            <label for="healthRating">Healthiness</label>
-            <select id="healthRating" name="healthRating">
-              <option value="">Select</option>
-              <option value="5">5 - Healthiest</option>
-              <option value="4">4</option>
-              <option value="3">3</option>
-              <option value="2">2</option>
-              <option value="1">1 - Least healthy</option>
-            </select>
+          <p class="error-message" id="formError" role="alert"></p>
+
+          <div class="button-row">
+            <button class="primary-button" id="submitButton" type="submit">Add option</button>
+            <button class="secondary-button hidden" id="cancelEditButton" type="button">Cancel edit</button>
           </div>
+        </form>
 
-          <div>
-            <label for="travelRating">Travel time</label>
-            <select id="travelRating" name="travelRating">
-              <option value="">Select</option>
-              <option value="5">5 - Shortest</option>
-              <option value="4">4</option>
-              <option value="3">3</option>
-              <option value="2">2</option>
-              <option value="1">1 - Longest</option>
-            </select>
+        <section class="panel list-panel" aria-labelledby="options-title">
+          <div class="section-heading">
+            <div>
+              <h2 id="options-title">Your options</h2>
+              <p id="optionCount">0 of 10 added</p>
+            </div>
+            <button class="primary-button" id="calculateButton" type="button">Calculate</button>
           </div>
-        </div>
+          <div class="empty-state" id="emptyOptions">No options yet. Add at least 2 to compare.</div>
+          <ul class="option-list" id="optionList"></ul>
+        </section>
+      </div>
 
-        <p class="error-message" id="formError" role="alert"></p>
-
-        <div class="button-row">
-          <button class="primary-button" id="submitButton" type="submit">Add option</button>
-          <button class="secondary-button hidden" id="cancelEditButton" type="button">Cancel edit</button>
-        </div>
-      </form>
-
-      <section class="panel list-panel" aria-labelledby="options-title">
-        <div class="section-heading">
-          <div>
-            <h2 id="options-title">Your options</h2>
-            <p id="optionCount">0 of 10 added</p>
+      <section class="results-layout" id="resultsSection" aria-label="Results">
+        <section class="panel results-panel" aria-labelledby="results-title">
+          <div class="section-heading">
+            <div>
+              <h2 id="results-title">Top choices</h2>
+              <p>Scores are totals out of 15.</p>
+            </div>
+            <button class="secondary-button" id="randomButton" type="button">Random Pick</button>
           </div>
-          <button class="primary-button" id="calculateButton" type="button">Calculate</button>
-        </div>
-        <div class="empty-state" id="emptyOptions">No options yet. Add at least 2 to compare.</div>
-        <ul class="option-list" id="optionList"></ul>
+          <div class="empty-state" id="emptyResults">Calculate to see your ranked top 3.</div>
+          <ol class="ranking-list" id="rankingList"></ol>
+        </section>
+
+        <section class="panel pick-panel" aria-labelledby="pick-title">
+          <h2 id="pick-title">Random pick</h2>
+          <div class="pick-result" id="pickResult">Use Random Pick after calculating your top choices.</div>
+        </section>
       </section>
     </section>
 
-    <section class="results-layout" aria-label="Results">
-      <section class="panel results-panel" aria-labelledby="results-title">
-        <div class="section-heading">
-          <div>
-            <h2 id="results-title">Top choices</h2>
-            <p>Scores are totals out of 15.</p>
-          </div>
-          <button class="secondary-button" id="randomButton" type="button">Random Pick</button>
-        </div>
-        <div class="empty-state" id="emptyResults">Calculate to see your ranked top 3.</div>
-        <ol class="ranking-list" id="rankingList"></ol>
-      </section>
-
-      <section class="panel pick-panel" aria-labelledby="pick-title">
-        <h2 id="pick-title">Random pick</h2>
-        <div class="pick-result" id="pickResult">Use Random Pick after calculating your top choices.</div>
-      </section>
-    </section>
   </main>
 
   <script src="script.js"></script>

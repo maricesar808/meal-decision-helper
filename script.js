@@ -19,6 +19,7 @@ const optionCount = document.querySelector("#optionCount");
 const emptyOptions = document.querySelector("#emptyOptions");
 const emptyResults = document.querySelector("#emptyResults");
 const pickResult = document.querySelector("#pickResult");
+const resultsSection = document.querySelector("#resultsSection");
 
 let options = [];
 let currentRanking = [];
@@ -252,6 +253,7 @@ calculateButton.addEventListener("click", () => {
   currentRanking = rankOptions();
   pickResult.textContent = "Use Random Pick to choose from these top options.";
   renderRanking();
+  resultsSection.scrollIntoView({ behavior: "smooth", block: "center" });
 });
 
 randomButton.addEventListener("click", () => {
@@ -263,6 +265,7 @@ randomButton.addEventListener("click", () => {
   clearError();
   const selected = currentRanking[Math.floor(Math.random() * currentRanking.length)];
   pickResult.innerHTML = `<strong>${escapeHtml(selected.name)}</strong>Randomly chosen from your calculated top ${currentRanking.length}.`;
+  resultsSection.scrollIntoView({ behavior: "smooth", block: "center" });
 });
 
 resetButton.addEventListener("click", () => {
