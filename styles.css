@@ -12,6 +12,10 @@
   --error: #9d341f;
 }
 
+html {
+  font-size: 18px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -108,9 +112,7 @@ h2 {
 }
 
 .workspace {
-  margin-top: 38px;
-  border-top: 1px solid var(--border);
-  padding-top: 36px;
+  margin-top: 30px;
 }
 
 .options-column,
@@ -143,8 +145,8 @@ h2 {
 .form-panel {
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 26px;
+  border-radius: 0;
+  padding: 22px 26px;
 }
 
 label {
@@ -180,8 +182,8 @@ select:focus {
 
 .rating-grid {
   display: grid;
-  gap: 20px;
-  margin-top: 22px;
+  gap: 16px;
+  margin-top: 18px;
 }
 
 .button-row,
@@ -194,7 +196,7 @@ select:focus {
 
 .button-row {
   justify-content: flex-start;
-  margin-top: 22px;
+  margin-top: 19px;
 }
 
 .section-heading {
@@ -216,7 +218,7 @@ select:focus {
 .secondary-button,
 .icon-button {
   min-height: 42px;
-  border-radius: 999px;
+  border-radius: 0;
   padding: 0 18px;
   font-size: 0.88rem;
   font-weight: 700;
@@ -261,16 +263,19 @@ select:focus {
 }
 
 .error-message {
-  min-height: 20px;
-  margin: 14px 0 0;
+  margin: 12px 0 0;
   color: var(--error);
   font-size: 0.9rem;
   font-weight: 700;
 }
 
+.error-message:empty {
+  display: none;
+}
+
 .empty-state {
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 0;
   background: rgba(255, 254, 253, 0.58);
   color: var(--muted);
   padding: 22px;
@@ -439,6 +444,7 @@ select:focus {
   .workspace {
     grid-template-columns: 1fr;
     gap: 28px;
+    margin-top: 24px;
   }
 
   .options-column,
@@ -451,7 +457,7 @@ select:focus {
   }
 
   .form-panel {
-    padding: 22px;
+    padding: 20px 22px;
   }
 
   .primary-button,
